@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+<title>KnockoutJS Components</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
+</head>
+<body>
+<!--params attribute is used to pass the parameter to component viewModel.-->
+<click params="a: a, b: b"></click>
+
+<!--template is used for a component by specifying its ID -->
+<template id="click-l">
+   <div data-bind="text: a"></div>
+
+   <!--Use data-bind attribute to bind click:function() to ViewModel. -->
+   <button data-bind="click:function(){callback(1)}">Increase</button>
+   <button data-bind="click:function(){callback(-1)}">Decrease</button>
+</template>
+
+<script>
+//Here components are registered
+  ko.components.register('click', {
+      viewModel: function(params) {
+         self = this;
+         this.a = params.a;
+         this.b = params.b;
+
+         this.callback = function(num){
+            self.b(parseInt(num));
+            self.a( self.a() + parseInt(num) );
+        };
+     },
+     template: { element: 'click-l' }
+  });
+
+	//keeps an eye on variable for any modification in data
+  function viewModel(){
+      this.a = ko.observable(2);
+      this.b = ko.observable(0);
+  }
+
+  ko.applyBindings(new viewModel() );
+</script>
+</body>
+</html>
