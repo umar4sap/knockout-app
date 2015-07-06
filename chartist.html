@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+ 
+   <link rel="stylesheet" href="chartist-js/dist/chartist.min.css">
+		  <script src="chartist-js/dist/chartist.min.js">
+		  </script>
+		  
+		  
+   <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js">
+   </script>
+   
+   
+	</head>
+	
+	
+<body ng-app="app" ng-controller="ChartistExampleCtrl">
+   <!-- This is called "view" of HTML markup that defines the appearance of UI -->
+
+<div chart >
+  
+  </div> 
+ <script>
+  
+  var module = angular.module('app', [])
+   module.controller('ChartistExampleCtrl', ['$scope', function ($scope) {
+  
+  var lineData = {labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+  series: [
+    [12, 9, 7, 8, 5],
+    [2, 1, 3.5, 7, 3],
+    [1, 3, 4, 5, 6]
+  ]}
+  new Chartist.Line('.ct-chart', lineData);
+  }])
+  
+  .directive('chart', function () {
+  
+  return {
+        scope: {},
+        template: ' <div class="ct-chart ct-perfect-fourth chart-container"></div>'
+    };
+  
+  
+}
+);
+  
+  </script>
+   
+   </body>
+<style>
+.chart-container{width:600px;}
+
+
+</style>
+
+</html>
